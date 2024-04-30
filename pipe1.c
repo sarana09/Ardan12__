@@ -49,8 +49,10 @@ int main(){
                 	printf("Can't read string\n");
                 	exit(-1);
                 }
-		printf("Информация от родительского процесса: %s\n", resstring2);
-		if (close(fd1[1]) < 0){
+		printf("Информация от родительского процесса:");
+	for (int i=0; i<14; i++) printf("%c", resstring2[i]);
+	printf ("\n");	
+	if (close(fd1[1]) < 0){
                 	printf("Can't close output stream\n");
                 	exit(-1);
         	}
@@ -78,6 +80,8 @@ else {
 		exit(-1);
 		}
        	printf("%s\n", resstring1);
+	for (int i=0; i<13; i++) printf ("%c", resstring1[i]);
+	printf("\n");
 	 size = write(fd2[1], string2, 14);
         if(size !=14){
 /*Если  записалось меньшее кол-во байт, сообщаем об ошибке*/
