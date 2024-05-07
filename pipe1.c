@@ -79,10 +79,11 @@ else {
 		printf("Can't read string\n");
 		exit(-1);
 		}
+	
        	printf("%s\n", resstring1);
 	for (int i=0; i<13; i++) printf ("%c", resstring1[i]);
 	printf("\n");
-	 size = write(fd2[1], string2, 14);
+	   size = write(fd2[1], resstring2, 14);
         if(size !=14){
 /*Если  записалось меньшее кол-во байт, сообщаем об ошибке*/
                  printf("Can't write all string\n");
