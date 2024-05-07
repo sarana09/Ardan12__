@@ -6,9 +6,8 @@
 #include <stdlib.h>
 
 int main() {
-	int fd, result;
+	int fd;
 	size_t size;
-	char resstring[13];
 	//Создаем символьный массив, где будет храниться имя файла FIFO
 	char name[] = "fifo.fifo";
 	//После первого запуска программы необходимо закомментирование процесс создания файла FIFO
@@ -16,47 +15,22 @@ int main() {
 		printf("Не удалось создать файл FIFO\n");
 		exit(-1);
 	 } */
-	//Порождаем дочерний процесс
-	if ((result = fork()) < 0) {
-		printf("Не удалось создать дочерний процесс\n");
-		exit(-1);
-	}
-	//Процесс- родитель пишет информацию в FIFO
-	else if (result >0){
-		if((fd = open(name, O_WRONLY)) < 0) {
+	
+	if((fd = open(name, O_WRONLY)) < 0) {
 		printf("Не удалось открыть файл на запись \n");
 		exit(-1);
 	}
-	size = write(fd, "Hello, child!", 13);
-	if (size != 13){
-		printf("Не получалось записать 13 байт в FIFO\n");
+	size = write(fd, "Hello, all", 11);
+	if (size != 11){
+		printf("Не удалось записать 11 байт в FIFO\n");
 		exit (-1);
-	}	
+	}
  	if (close(fd)<0){
-		printf("Не получилось закрыть FIFO\n");
-		exit(-1);
-	}
-		printf("Процесс - родитель записал информацию в FIFO и завершил работу\n");
-}
-	//Процесс - ребенок читает информацию  из FIFO
-	else {
-	if ((fd = open(name, O_RDONLY)) < 0) {
-		printf("Не удалось открыть FIFO для чтения\n");
+		printf("Не получилось закрыть FIFO, открытый на запись\n");
 		exit(-1);
 		}
-	size = read(fd, resstring, 13);
-	if (size !=13) {
-		printf("Не удалось прочитать информацию из  FIFO\n");
-		exit(-1);
-	}
-	printf("Процесс - ребенок прочитал информацию: %s\n", resstring);
-	if (close(fd)<0) {
-		printf("НЕ получилось закрыть FIFO, открытый для чтения\n");
-		exit(-1);	
-		}
-	}
+	printf("Процесс fifo записал  информацию в FIFO и завершил работу\n");   
 	return 0;
 }
-
 
 
