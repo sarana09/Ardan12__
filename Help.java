@@ -8,12 +8,15 @@ class Help {
 			System.out.println("Справочная система: ");
 			System.out.println(" 1. if");
 			System.out.println(" 2. switch");
-			System.out.println("выберите подраздел: ");
+			System.out.println(" 3. for");
+                        System.out.println(" 4. while");
+			System.out.println(" 5. do-while");
+			System.out.println("Bыберите подраздел: ");
 			choice = (char) System.in.read();
 			do { 
 				ignore =(char) System.in.read();
 			} while (ignore !='\n');
-		} while (choice < '1'| choice > '2');
+		} while (choice < '1'| choice > '5');
 
 		System.out.println("\n");
 
@@ -32,9 +35,21 @@ class Help {
                                 System.out.println("	...");
 				System.out.println("}");
 				break;
-			default:
-				System.out.print("Неверный номер подраздела");
-
+			case '3':
+                                System.out.println("цикл for:\n");
+                                System.out.println("for (инициализация; условия; итерация)");
+                                System.out.println("операторы;");
+                                break;
+			case '4':
+                                System.out.println("Цикл  while:\n");
+                                System.out.println("while (условие) операторы;");
+                                break;
+			case '5':
+                                System.out.println("Цикл do-while:\n");
+                                System.out.println("do {");
+                                System.out.println("операторы;");
+				System.out.println("} while(условие);");
+                                break;
 	
 		}
 	}	
