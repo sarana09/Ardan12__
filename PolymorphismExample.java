@@ -1,4 +1,4 @@
-> Чудес не бывает:
+
 // Абстрактный класс Recipe
 abstract class Recipe {
     private double quantity; // Количество (граммы, литры и т.д.)
@@ -146,7 +146,7 @@ public class PolymorphismExample {
     public static void main(String[] args) {
         int numberOfGirls = 15; // Количество девочек
 
-> Чудес не бывает:
+
 int numberOfBoys = 10; // Количество мальчиков
 
         // Создание объектов салата и супа
