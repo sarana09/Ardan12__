@@ -1,75 +1,74 @@
-// Абстрактный класс рецепта
-abstract class Recipe {
-protected String name; // Название рецепта
+import java.lang.Math;
 
-// Конструктор с параметром для названия рецепта
-Recipe(String name) {
-this.name = name;
+// Абстрактный класс для геометрических фигур
+abstract class Polygon {
+protected int numSides; // Количество сторон фигуры
+
+// Конструктор с параметром для установки количества сторон
+Polygon(int numSides) {
+this.numSides = numSides;
 }
 
-// Абстрактный метод для вычисления количества ингредиентов
-abstract void calculateIngredients(int numberOfPeople);
+// Абстрактный метод для вычисления площади фигуры
+abstract double calculateArea();
 }
 
-// Подкласс для супа
-class Borscht extends Recipe {
-// Конструктор для супа
-Borscht() {
-super("Борщ"); // Вызов конструктора суперкласса
+// Подкласс для восьмиугольника
+class Octagon extends Polygon {
+// Конструктор для восьмиугольника
+Octagon() {
+super(8); // Вызов конструктора суперкласса с указанием количества сторон
 }
 
-// Реализация метода calculateIngredients для супа
+// Реализация метода calculateArea для восьмиугольника
 @Override
-void calculateIngredients(int numberOfPeople) {
-// Вычисление количества ингредиентов для супа Борщ
-// (для примера предположим фиксированные значения)
-double potatoes = 0.2 * numberOfPeople; // 200 грамм картофеля на человека
-double cabbage = 0.1 * numberOfPeople; // 100 грамм капусты на человека
-double beets = 0.15 * numberOfPeople; // 150 грамм свеклы на человека
-
-// Вывод количества ингредиентов для супа Борщ
-System.out.println("Ингредиенты для супа " + name + " на " + numberOfPeople + " человек:");
-System.out.println("Картофель: " + potatoes + " кг");
-System.out.println("Капуста: " + cabbage + " кг");
-System.out.println("Свекла: " + beets + " кг");
+double calculateArea() {
+double sideLength = 5.0; // Длина стороны восьмиугольника
+return 2 * Math.pow(sideLength, 2) * (1 + Math.sqrt(2)); // Формула площади восьмиугольника
 }
 }
 
-// Подкласс для салата
-class CaesarSalad extends Recipe {
-// Конструктор для салата
-CaesarSalad() {
-super("Цезарь"); // Вызов конструктора суперкласса
+// Подкласс для девятиугольника
+class Nonagon extends Polygon {
+// Конструктор для девятиугольника
+Nonagon() {
+super(9); // Вызов конструктора суперкласса с указанием количества сторон
 }
 
-// Реализация метода calculateIngredients для салата
+// Реализация метода calculateArea для девятиугольника
 @Override
-void calculateIngredients(int numberOfPeople) {
-// Вычисление количества ингредиентов для салата Цезарь
-// (для примера предположим фиксированные значения)
-double lettuce = 0.1 * numberOfPeople; // 100 грамм салата на человека
-double chicken = 0.15 * numberOfPeople; // 150 грамм курицы на человека
-double croutons = 0.05 * numberOfPeople; // 50 грамм гренок на человека
+double calculateArea() {
+double sideLength = 6.0; // Длина стороны девятиугольника
+return 9 * Math.pow(sideLength, 2) / (4 * Math.tan(Math.PI / 9)); // Формула площади девятиугольника
+}
+}
 
-// Вывод количества ингредиентов для салата Цезарь
-System.out.println("Ингредиенты для салата " + name + " на " + numberOfPeople + " человек:");
-System.out.println("Салат: " + lettuce + " кг");
-System.out.println("Курица: " + chicken + " кг");
-System.out.println("Гренки: " + croutons + " кг");
+// Подкласс для десятиугольника
+class Decagon extends Polygon {
+// Конструктор для десятиугольника
+Decagon() {
+super(10); // Вызов конструктора суперкласса с указанием количества сторон
+}
+
+// Реализация метода calculateArea для десятиугольника
+@Override
+double calculateArea() {
+double sideLength = 7.0; // Длина стороны десятиугольника
+return 5 * Math.pow(sideLength, 2) * Math.sqrt(5 * (5 + 2 * Math.sqrt(5))) / 4; // Формула площади десятиугольника
 }
 }
 
 // Главный класс для тестирования
 public class Main {
 public static void main(String[] args) {
-int numberOfPeople = 20; // Количество человек
+// Создание объектов восьмиугольника, девятиугольника и десятиугольника
+Polygon octagon = new Octagon();
+Polygon nonagon = new Nonagon();
+Polygon decagon = new Decagon();
 
-// Создание объектов для супа и салата
-Recipe borscht = new Borscht();
-Recipe caesarSalad = new CaesarSalad();
-
-// Вычисление и вывод необходимого количества ингредиентов
-borscht.calculateIngredients(numberOfPeople);
-caesarSalad.calculateIngredients(numberOfPeople);
+// Вычисление и вывод площади каждой фигуры
+System.out.println("Площадь восьмиугольника: " + octagon.calculateArea());
+System.out.println("Площадь девятиугольника: " + nonagon.calculateArea());
+System.out.println("Площадь десятиугольника: " + decagon.calculateArea());
 }
-} 
+}
