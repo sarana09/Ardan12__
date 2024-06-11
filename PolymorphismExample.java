@@ -1,161 +1,128 @@
+import java.util.ArrayList;
+import java.util.List;
 
-// Абстрактный класс Recipe
-abstract class Recipe {
-    private double quantity; // Количество (граммы, литры и т.д.)
-    private String name; // Название рецепта
+// Интерфейс, представляющий блюдо
+interface Dish {
+    // Метод для приготовления блюда
+    void cook();
 
-    // Конструктор по умолчанию
-    Recipe() {
-        quantity = 0.0;
-        name = "none";
-    }
-
-    // Параметризированный конструктор
-    Recipe(double qty, String n) {
-        quantity = qty;
-        name = n;
-    }
-
-    // Конструктор с одинаковыми значениями переменных экземпляра
-    Recipe(double qty) {
-        quantity = qty;
-        name = "none";
-    }
-
-    // Конструктор для создания одного объекта на основе другого
-    Recipe(Recipe ob) {
-        quantity = ob.quantity;
-        name = ob.name;
-    }
-
-    // Методы доступа к переменным quantity и name
-    double getQuantity() {
-        return quantity;
-    }
-
-    String getName() {
-        return name;
-    }
-
-    void setQuantity(double qty) {
-        quantity = qty;
-    }
-
-    void setName(String n) {
-        name = n;
-    }
-
-    // Абстрактный метод для вычисления необходимых ингредиентов
-    abstract void calculateIngredients(int people);
+    // Метод для получения списка ингредиентов
+    List<Ingredient> getIngredients();
 }
 
-// Подкласс Salad, представляющий салат
-class Salad extends Recipe {
-    private String type; // Тип салата
+// Класс, представляющий суп Борщ
+class Borscht implements Dish {
+    private int servings; // Количество порций
 
-    // Конструктор по умолчанию
-    Salad() {
-        super();
-        type = "none";
+    // Конструктор для приготовления Борща на неопределенное количество человек
+    public Borscht(int servings) {
+        this.servings = servings;
+
+        // Добавление ингредиентов в список
+        List<Ingredient> ingredients = new ArrayList<>();
+        ingredients.add(new Ingredient("Свекла", servings / 2));
+        ingredients.add(new Ingredient("Картофель", servings));
+        ingredients.add(new Ingredient("Капуста", servings / 2));
+        ingredients.add(new Ingredient("Морковь", servings / 2));
+        ingredients.add(new Ingredient("Лук", servings / 2));
+        ingredients.add(new Ingredient("Томатная паста", servings / 4));
+        ingredients.add(new Ingredient("Говядина", servings / 2));
+        ingredients.add(new Ingredient("Вода", servings * 2));
+        this.ingredients = ingredients;
     }
 
-    // Конструктор класса Salad
-    Salad(String t, double qty) {
-        super(qty, "Салат");
-        type = t;
-    }
-
-    // Конструктор с одним аргументом для создания салата
-    Salad(double qty) {
-        super(qty);
-        type = "обычный";
-    }
-
-    // Конструктор для создания одного объекта на основе другого
-    Salad(Salad ob) {
-        super(ob);
-        type = ob.type;
-    }
-
-    // Реализация метода calculateIngredients для салата
+    // Метод для приготовления Борща
     @Override
-    void calculateIngredients(int people) {
-        double lettucePerPerson = 50.5; // 50.5 грамм салата на человека
-        double tomatoPerPerson = 30.3;  // 30.3 грамм помидоров на человека
-        double cucumberPerPerson = 20.2; // 20.2 грамм огурцов на человека
-
-        double totalLettuce = people * lettucePerPerson;
-        double totalTomato = people * tomatoPerPerson;
-        double totalCucumber = people * cucumberPerPerson;
-
-        System.out.println("Для приготовления " + type + " салата на " + people + " человек нужно:");
-        System.out.println(totalLettuce + " грамм салата");
-        System.out.println(totalTomato + " грамм помидоров");
-        System.out.println(totalCucumber + " грамм огурцов");
-    }
-}
-
-// Подкласс Soup, представляющий суп
-class Soup extends Recipe {
-    private String soupType; // Тип супа
-
-    // Конструктор по умолчанию
-    Soup() {
-        super();
-        soupType = "none";
+    public void cook() {
+        System.out.println("Приготовление Борща на " + servings + " человек");
+        // TODO: Здесь должен быть код приготовления Борща
     }
 
-    // Конструктор класса Soup
-    Soup(String s, double qty) {
-        super(qty, "Суп");
-        soupType = s;
-    }
-
-    // Конструктор с одним аргументом для создания супа
-    Soup(double qty) {
-        super(qty);
-        soupType = "обычный";
-    }
-
-    // Конструктор для создания одного объекта на основе другого
-    Soup(Soup ob) {
-        super(ob);
-        soupType = ob.soupType;
-    }
-
-    // Реализация метода calculateIngredients для супа
+    // Метод для получения списка ингредиентов
     @Override
-    void calculateIngredients(int people) {
-        double potatoPerPerson = 100.0;  // 100 грамм картофеля на человека
-        double carrotPerPerson = 50.5;   // 50.5 грамм моркови на человека
-        double meatPerPerson = 150.75;   // 150.75 грамм мяса на человека
-
-        double totalPotato = people * potatoPerPerson;
-        double totalCarrot = people * carrotPerPerson;
-        double totalMeat = people * meatPerPerson;
-
-        System.out.println("Для приготовления супа '" + soupType + "' на " + people + " человек нужно:");
-        System.out.println(totalPotato + " грамм картофеля");
-        System.out.println(totalCarrot + " грамм моркови");
-        System.out.println(totalMeat + " грамм мяса");
+    public List<Ingredient> getIngredients() {
+        return this.ingredients;
     }
 }
 
-// Главный класс для тестирования полиморфизма
-public class PolymorphismExample {
+// Класс, представляющий салат Цезарь
+class CaesarSalad implements Dish {
+    private int servings; // Количество порций
+
+    // Конструктор для приготовления салата Цезарь на неопределенное количество человек
+    public CaesarSalad(int servings) {
+        this.servings = servings;
+
+        // Добавление ингредиентов в список
+        List<Ingredient> ingredients = new ArrayList<>();
+        ingredients.add(new Ingredient("Салат ромэн", servings));
+        ingredients.add(new Ingredient("Куриная грудка (гриль)", servings / 2));
+        ingredients.add(new Ingredient("Пармезан (тертый)", servings / 4));
+        ingredients.add(new Ingredient("Сухарики", servings / 2));
+        ingredients.add(new Ingredient("Оливковое масло", servings / 8));
+        ingredients.add(new Ingredient("Лимонный сок", servings / 8));
+        ingredients.add(new Ingredient("Вустерширский соус", servings / 16));
+        ingredients.add(new Ingredient("Соль", servings / 16));
+        ingredients.add(new Ingredient("Перец", servings / 16));
+        this.ingredients = ingredients;
+    }
+
+    // Метод для приготовления салата Цезарь
+    @Override
+    public void cook() {
+        System.out.println("Приготовление салата Цезарь на " + servings + " человек");
+        // TODO: Здесь должен быть код приготовления салата Цезарь
+    }
+
+    // Метод для получения списка ингредиентов
+    @Override
+    public List<Ingredient> getIngredients() {
+        return this.ingredients;
+    }
+}
+
+// Класс, представляющий ингредиент
+class Ingredient {
+    private String name; // Название ингредиента
+    private int quantity; // Количество ингредиента
+
+    // Конструктор для ингредиента
+    public Ingredient(String name, int quantity) {
+        this.name = name;
+        this.quantity = quantity;
+    }
+
+    // Геттер для названия ингредиента
+    public String getName() {
+        return this.name;
+    }
+
+    // Геттер для количества ингредиента
+    public int getQuantity() {
+        return this.quantity;
+    }
+}
+
+// Основной класс
+public class Main {
     public static void main(String[] args) {
-        int numberOfGirls = 15; // Количество девочек
+        // Создание объекта Борщ на 4 человека
+        Dish borscht = new Borscht(4);
 
+        // Создание объекта Салат Цезарь на 6 человек
+        Dish caesarSalad = new CaesarSalad(6);
 
-int numberOfBoys = 10; // Количество мальчиков
+        // Вывод списка ингредиентов для Борща
+        System.out.println("Ингредиенты для Борща:");
+        for (Ingredient ingredient : borscht.getIngredients()) {
+            System.out.println(ingredient.getName() + ": " + ingredient.getQuantity());
+        }
 
-        // Создание объектов салата и супа
-        Recipe salad = new Salad("Цезарь", 1.5);
-        Recipe soup = new Soup("Борщ", 2.0);
-
-        // Вычисление и вывод необходимого количества ингредиентов для салата и супа для девочек и мальчиков
-        salad.calculateIngredients(numberOfGirls);
-        soup.calculateIngredients(numberOfBoys);
+        // Вывод списка ингредиентов для Салата Цезарь
+        System.out.println("Ингредиенты для Салата Цезарь:");
+        for (Ingredient ingredient : caesarSalad.getIngredients()) {
+            System.out.println(ingredient.getName() + ": " + ingredient.getQuantity());
+        }
     }
 }
 
