@@ -1,3 +1,4 @@
+
 // Абстрактный класс Recipe
 abstract class Recipe {
 private double quantity; // Количество (граммы, литры и т.д.)
@@ -144,7 +145,6 @@ System.out.println(totalMeat + " грамм мяса");
 public class PolymorphismExample {
 public static void main(String[] args) {
 int numberOfPeople = 10; // Количество человек
-
 // Создание объектов салата и супа
 Recipe salad = new Salad("Цезарь", 1.5);
 Recipe soup = new Soup("Борщ", 2.0);
